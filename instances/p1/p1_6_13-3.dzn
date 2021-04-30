@@ -1,0 +1,4 @@
+Alphabet = {A,C,G,T};
+ns = 6;
+nc = 13;
+neighbours = [| I(A),I(A),I(C),I(A),I(A),I(C),I(A),I(A),I(C),I(A),I(A),I(A),I(C) | I(A),I(A),I(C),I(A),I(A),I(A),I(A),I(C),I(A),I(A),I(A),I(A),I(C) | I(A),I(A),I(C),I(A),I(A),I(C),I(C),I(C),I(C),I(A),I(A),I(C),I(A) | I(A),I(A),I(A),I(A),I(C),I(A),I(A),I(C),I(A),I(C),I(C),I(C),I(A) | I(A),I(A),I(A),I(A),I(A),I(A),I(C),I(C),I(C),I(A),I(A),I(G),I(G) | I(A),I(A),I(A),I(A),I(A),I(A),I(A),I(A),I(A),I(C),I(C),I(A),I(A) |];

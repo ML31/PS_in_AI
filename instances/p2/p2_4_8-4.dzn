@@ -1,0 +1,4 @@
+Alphabet = {A,C,G,T};
+ns = 4;
+nc = 5;
+neighbours = [| I(G),Null,Null,Null,Null | I(C),I(A),I(C),I(C),I(C) | I(G),I(G),Null,Null,Null | Null,Null,Null,Null,Null |];

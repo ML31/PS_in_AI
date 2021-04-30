@@ -6,16 +6,17 @@
 % define the used alphabet
 enum Alphabet;
 
-Alphabet = {A,C,G,T};    % include this in the data file
+% Alphabet = {A,C,G,T};    % include this in the data file
 
 % create alphabet with empty character
 enum AlphabetFull = I(Alphabet) ++ { Null };
 
 % define the maximum length of any given string (also in data file)
-int: nc = 4;
-
-int: ns = 3;    % number of strings
-
+% int: nc = 4;
+int: nc;
+% int: ns = 3;    % number of strings
+int: ns;
+ 
 set of int: len = 1..nc;    %set of max length
 
 % create solution array, which has the encoded characters
@@ -25,13 +26,16 @@ var int: global_edit_distance;
 
 % create array of neighbouring strings, in the implementation used we need to fill up the strings with "Null" characters up to the max length (preprocessing? or rewrite function, but its tricky)
 % first manually with 3 entries of fixed size
-array[1..ns, len] of Alphabet: inread;    
+%array[1..ns, len] of Alphabet: inread;    
 array[1..ns, len] of AlphabetFull: neighbours;
-inread = [| A,T,T,A | G,A,C,T | C,G,A,A |];
-neighbours = [| I(G),I(T),I(C),Null | I(A),I(T),I(C),Null | I(T),I(G),I(G),I(T) |];    %better solution needed
+% inread = [| A,T,T,A | G,A,C,T | C,G,A,A |];
+% neighbours = [| I(G),I(T),I(C),Null | I(A),I(T),I(C),Null | I(T),I(G),I(G),I(T) |];    %better solution needed
 
+% call with minizinc Minimum_editing_distance.mzn test.dzn
 
-
+output [
+  "num_strings=\(ns), alphabet=\(Alphabet). str_length=\(nc)\n",
+];
 
 % FUNCTIONS
 % minimum editing distance function (Wagner-Fischer Implementation)

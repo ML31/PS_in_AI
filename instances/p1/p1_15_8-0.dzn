@@ -1,0 +1,4 @@
+Alphabet = {A,C,G,T};
+ns = 15;
+nc = 8;
+neighbours = [| I(C),I(C),I(A),I(C),I(C),I(A),I(A),I(G) | I(A),I(A),I(A),I(A),I(A),I(C),I(C),I(A) | I(C),I(A),I(C),I(A),I(A),I(A),I(A),I(A) | I(C),I(A),I(C),I(A),I(A),I(C),I(C),I(A) | I(A),I(A),I(A),I(C),I(C),I(C),I(A),I(C) | I(A),I(A),I(A),I(A),I(A),I(A),I(A),I(A) | I(A),I(C),I(A),I(C),I(A),I(C),I(A),I(C) | I(A),I(A),I(A),I(A),I(C),I(C),I(C),I(A) | I(A),I(C),I(A),I(C),I(A),I(A),I(C),I(A) | I(A),I(C),I(A),I(A),I(G),I(A),I(C),I(C) | I(A),I(C),I(A),I(G),I(A),I(A),I(C),I(C) | I(A),I(A),I(C),I(C),I(A),I(A),I(A),I(A) | I(C),I(C),I(C),I(A),I(A),I(A),I(A),I(C) | I(A),I(C),I(A),I(A),I(A),I(A),I(C),I(A) | I(A),I(C),I(A),I(C),I(A),I(A),I(A),I(A) |];

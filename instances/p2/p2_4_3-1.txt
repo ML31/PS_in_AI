@@ -1,0 +1,11 @@
+{
+	"num_strings": 4,
+	"alphabet": "ACGT",
+	"strings": [
+		"CTT",
+		"TCA",
+		"",
+		"CCC"
+	],
+	"str_length":[3,3,0,3]
+}

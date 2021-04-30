@@ -1,0 +1,9 @@
+{
+	"num_strings": 2,
+	"alphabet": "ACGT",
+	"strings": [
+		"CG",
+		"TG"
+	],
+	"str_length":[2,2]
+}
