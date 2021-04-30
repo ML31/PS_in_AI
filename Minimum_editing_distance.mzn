@@ -81,7 +81,7 @@ solve minimize global_edit_distance;
 
 
 
-output [ "An optimal median string is: "] ++ [if fix( solution[i] = Null ) then "" else show(I^-1(solution[i])) endif | i in len] ++ [" with a global editing distance of ",show(global_edit_distance)];
+output [ "Results: {median_string: "] ++ [if fix( solution[i] = Null ) then "" else show(I^-1(solution[i])) endif | i in len] ++ [" global_editing_distance: ",show(global_edit_distance)] ++ ["}"];
 
 
 
