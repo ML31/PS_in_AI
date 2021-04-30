@@ -41,18 +41,18 @@ output [
 % minimum editing distance function (Wagner-Fischer Implementation)
 function var int: minEditDist( array[len] of var AlphabetFull: start, array[len] of AlphabetFull: goal ) =
 let {   
-        % OLD SOLUTION WITH VARYING STRING LENGTHS, DID NOT WORK AS INTENDED
-        %var 0..nc+1: m; var 0..nc+1: n;         % initialize m and n, the sizes of the non empty strings
-        %constraint forall(i in start)((start(i) = Null -> m < i) /\ (start(i) != Null -> m >= i));  % force m to the right size
-        %constraint forall(i in goal)((goal(i) != Null -> n < i) /\ (goal(i) != Null -> n >= i));    %force n to the right size
+        
+        var 0..nc+1: m; var 0..nc+1: n;         % initialize m and n
+        constraint forall(i in len)((start[i] = Null -> m < i) /\ (start[i] != Null -> m >= i));  % force m to the right size
+        constraint forall(i in len)((goal[i] = Null -> n < i) /\ (goal[i] != Null -> n >= i));    %force n to the right size
         
         
         % better solution use fixed size, the solution string is bound to have all "Null"s at the end
-        int: m = length(start);
-        int: n = length(goal);
+        int: m_fix = length(start);
+        int: n_fix = length(goal);
         
         
-        array[0..m, 0..n] of var int: d;                      % create the distance matrix d
+        array[0..m_fix, 0..n_fix] of var int: d;                      % create the distance matrix d
         constraint forall(i in 1..m) ( d[i,0] = i );          % initialize the matrix
         constraint forall(j in 1..n) ( d[0,j] = j );
         constraint d[0,0] = 0;
