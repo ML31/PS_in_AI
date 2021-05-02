@@ -15,7 +15,7 @@
 %%%%%%%%%%%%%%%%%%
 
 % The model is usable with different parameter settings, which are defined in a seperate data file and are compiled together with the model
-% In the comments below every instance which should be included in the data file will be marked with a *
+% In the comments below every instance which should be included in the data file will be marked with *
 
 % Declare the finite alphabet used for a specific problem instance *
 enum Alphabet;
