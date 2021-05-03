@@ -32,8 +32,14 @@ int: nc;
 % Initialize a parameter set with the length of the search domain
 set of int: len = 1..nc; 
 
+% Declare a parameter containing the maximum number of characters of the solution string
+% has to be smaller or equal to nc *
+int: sl;
+
+set of int: sol_len = 1..sl;
+
 % Declare an array of decision variables, which can take any character of the expanded alphabet and will contain the solution
-array[len] of var AlphabetFull: solution;
+array[1..sl] of var AlphabetFull: solution;
 
 % Declare an integer variable which will hold the global editing distance
 var int: global_edit_distance;
@@ -42,7 +48,7 @@ var int: global_edit_distance;
 array[1..ns, len] of AlphabetFull: neighbours;
 
 % Output some statistics of the specific problem: the number of strings, used alphabet and maximum string length
-output [ "num_strings=\(ns), alphabet=\(Alphabet). str_length=\(nc)\n", ];
+output [ "num_strings=\(ns), alphabet=\(Alphabet). str_length=\(nc), sol_length=\(sl)\n", ];
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -50,13 +56,13 @@ output [ "num_strings=\(ns), alphabet=\(Alphabet). str_length=\(nc)\n", ];
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Define a function minEditDist which recieves two arrays of characters and calculates the minimum editing distance, by using the dynamic Wagner-Fischer algorithm
-function var int: minEditDist( array[len] of var AlphabetFull: start, array[len] of AlphabetFull: goal ) =
+function var int: minEditDist( array[sol_len] of var AlphabetFull: start, array[len] of AlphabetFull: goal ) =
 
 % Introduce new local variables used for the calculation
 let {   
         
         % Declare variables m and n, the sizes of strings start and goal, when omitting all "Null" characters at the end
-        var 0..nc+1: m; var 0..nc+1: n;
+        var 0..sl+1: m; var 0..nc+1: n;
         
         % Calculate the size of m and n, by constraining them to fulfill the statement above
         constraint forall(i in len)((start[i] = Null -> m < i) /\ (start[i] != Null -> m >= i));
@@ -90,7 +96,7 @@ let {
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Integrity constraint, which guarantees, that "Null" values in the solution string are only present at the end of the string
-constraint forall(i in 1..nc-1) ( (solution[i] = Null) -> (solution[i+1] = Null) );
+constraint forall(i in 1..sl-1) ( (solution[i] = Null) -> (solution[i+1] = Null) );
 
 % This constraint sums up the minimum editing distances from the solution to every string and stores the value in the variable global_editing_distance
 constraint global_edit_distance = sum([minEditDist(solution, neighbours[i,len]) | i in 1..ns]);
@@ -99,4 +105,4 @@ constraint global_edit_distance = sum([minEditDist(solution, neighbours[i,len]) 
 solve minimize global_edit_distance;
 
 % Output the resulting median string without the "Null" values and the resulting global editing distance
-output [ "Results: {median_string: "] ++ [if fix( solution[i] = Null ) then "" else show(I^-1(solution[i])) endif | i in len] ++ [" global_editing_distance: ",show(global_edit_distance)] ++ ["}"];
+output [ "Results: {median_string: "] ++ [if fix( solution[i] = Null ) then "" else show(I^-1(solution[i])) endif | i in sol_len] ++ [" global_editing_distance: ",show(global_edit_distance)] ++ ["}"];

@@ -1,0 +1,17 @@
+{
+	"num_strings": 10,
+	"alphabet": "ACGT",
+	"strings": [
+		"GGGT",
+		"AC",
+		"AA",
+		"CAAT",
+		"A",
+		"TC",
+		"GG",
+		"CG",
+		"TTT",
+		"A"
+	],
+	"str_length":[4,2,2,4,1,2,2,2,3,1]
+}
