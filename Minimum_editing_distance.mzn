@@ -65,7 +65,7 @@ let {
         var 0..sl+1: m; var 0..nc+1: n;
         
         % Calculate the size of m and n, by constraining them to fulfill the statement above
-        constraint forall(i in len)((start[i] = Null -> m < i) /\ (start[i] != Null -> m >= i));
+        constraint forall(i in sol_len)((start[i] = Null -> m < i) /\ (start[i] != Null -> m >= i));
         constraint forall(i in len)((goal[i] = Null -> n < i) /\ (goal[i] != Null -> n >= i));
         
         % Initialize parameters, whith the full length of start and goal string
