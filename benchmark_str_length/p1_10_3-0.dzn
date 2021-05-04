@@ -1,5 +1,5 @@
 Alphabet = {A,C,G,T};
 ns = 10;
 nc = 3;
-sl = 3;
+sl = 10;
 neighbours = [| I(C),I(G),I(C) | I(A),I(A),I(A) | I(A),I(A),I(A) | I(C),I(A),I(A) | I(A),I(A),I(A) | I(A),I(A),I(A) | I(C),I(A),I(A) | I(A),I(A),I(C) | I(G),I(A),I(A) | I(A),I(C),I(C) |];
