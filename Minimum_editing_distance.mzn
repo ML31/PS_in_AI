@@ -32,8 +32,7 @@ int: nc;
 % Initialize a parameter set with the length of the search domain
 set of int: len = 1..nc; 
 
-% Declare a parameter containing the maximum number of characters of the solution string
-% has to be smaller or equal to nc *
+% Declare a parameter containing the maximum number of characters of the solution string *
 int: sl;
 
 set of int: sol_len = 1..sl;
