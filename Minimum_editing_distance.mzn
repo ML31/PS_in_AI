@@ -16,7 +16,7 @@
 
 % The model is usable with different parameter settings, which are defined in a seperate data file and are compiled together with the model
 % In the comments below every instance which should be included in the data file will be marked with *
-include "quick.dzn";
+% include "quick.dzn";
 % Declare the finite alphabet used for a specific problem instance *
 enum Alphabet;
 
@@ -105,7 +105,6 @@ constraint global_edit_distance = sum([minEditDist(solution, neighbours[i,len]) 
 
 % With search strategy
 ann: random = int_search(solution, dom_w_deg, indomain_random, complete);
-
 solve::random minimize global_edit_distance;
 
 % Output the resulting median string without the "Null" values and the resulting global editing distance
