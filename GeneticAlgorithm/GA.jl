@@ -19,6 +19,7 @@ function rand_string(alphabet, n)
     return reduce(*, rand(alphabet, n))
 end
 
+# rank based selection
 # fitness is determined by the number of individuals
 # a individual is prevailed by
 function pareto_fitness(f_pop::Array{Int,1})
@@ -57,19 +58,18 @@ function reproduce(mating_pool::Array{Int,1}, pop::Vector{String}, N::Int,
     next_pop = Vector{String}(undef, size(pop))
     for i in 1:N
         p = rand() * p_tot
-        k = mating_pool[i]
 
         if p ≤ cre_F
             # create
             slength = rand(1:max_length)
             new = rand_string(alphabet, slength)
         elseif p ≤ dupl_F
-            # duplicate
-            new = pop[k]
+            # duplicate random member of mating pool
+            new = pop[mating_pool[rand(1:N)]]
         elseif p ≤ mut_F
-            # mutate
+            # mutate random member of mating pool
             p2 = rand()
-            template = pop[k]
+            template = pop[mating_pool[rand(1:N)]]
             t = rand(1:length(template))
             if p2 ≤ 0.33
                 # insert
@@ -82,7 +82,7 @@ function reproduce(mating_pool::Array{Int,1}, pop::Vector{String}, N::Int,
                 new = template[1:t-1] * template[t:end]
             end
         else
-            # crossover
+            # crossover two random members of mating pool
             a, b = mating_pool[rand(1:N,2)] # parents
             t1 = rand(1:length(a)) # crossover point
             t2 = rand(1:length(b))
