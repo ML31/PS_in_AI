@@ -101,6 +101,7 @@ function GeneticOptimization(alphabet::String, strs::Vector{String}; N_pop::Int,
     cre_p::Float64, dupl_p::Float64, mut_p::Float64, cross_p::Float64)
 
     # creation
+    mat = zeros(Int, 100, 100)         # hardcoded fixed matrix size
     population = [rand_string(alphabet, rand(1:max_length)) for i in 1:N_pop]
     #display(population)
 
@@ -111,10 +112,10 @@ function GeneticOptimization(alphabet::String, strs::Vector{String}; N_pop::Int,
     while n < n_max
         n += 1
         # evaluate  on population
-        f_pop = [sum(edit_distance(s, population[k]) for s in strs) for k in 1:N_pop]
+        f_pop = [sum(edit_distance(s, population[k], mat) for s in strs) for k in 1:N_pop]
         # find best individual
         k = argmin(j -> f_pop[j], collect(1:N_pop))
-        if sum(edit_distance(s, population[k]) for s in strs) < sum(edit_distance(s, best) for s in strs)
+        if sum(edit_distance(s, population[k], mat) for s in strs) < sum(edit_distance(s, best, mat) for s in strs)
             best = population[k]
         end
 
@@ -122,9 +123,9 @@ function GeneticOptimization(alphabet::String, strs::Vector{String}; N_pop::Int,
         fitness = pareto_fitness(f_pop)
         mating_pool = tournament_select(fitness, N_pop, 2) # mating_pool are indices
 
-        # push!(pop_hist, population)
-        # push!(fit_hist, fitness)
-        # push!(mat_hist, mating_pool)
+        #push!(pop_hist, population)
+        #push!(fit_hist, fitness)
+        #push!(mat_hist, mating_pool)
 
         population = reproduce(
             mating_pool, population, N_pop, alphabet, max_length,

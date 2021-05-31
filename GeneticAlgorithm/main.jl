@@ -5,7 +5,7 @@ include("edit_distance.jl")
 include("GA.jl")
 
 
-problem = JSON.parsefile("Optimization/MedianString/instances/p1/p1_15_20-4.txt")
+problem = JSON.parsefile("C:/Users/basti/Documents/GitHub/PS_in_AI/instances/p1/p1_15_20-4.txt")
 
 
 alphabet = problem["alphabet"]
@@ -19,10 +19,10 @@ Random.seed!(0)
     cre_p=0.25, dupl_p=0.25, mut_p=0.25, cross_p=0.25)
 
 
-sum(edit_distance(best, s) for s in strs)
+sum(edit_distance(best, s, zeros(Int,100,100)) for s in strs)
 length(best)
 
 
 using BenchmarkTools
 
-@btime sum(edit_distance(best, s) for s in strs)
+@btime sum(edit_distance(best, s, zeros(Int,100,100)) for s in strs)
