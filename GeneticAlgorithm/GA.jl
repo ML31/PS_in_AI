@@ -98,11 +98,16 @@ end
 
 function GeneticOptimization(alphabet::String, strs::Vector{String}; N_pop::Int,
     max_length::Int, n_max::Int=10^2,
-    cre_p::Float64, dupl_p::Float64, mut_p::Float64, cross_p::Float64)
+    cre_p::Float64, dupl_p::Float64, mut_p::Float64, cross_p::Float64, warm_start::Bool=false)
 
     # creation
-    mat = zeros(Int, 100, 100)         # hardcoded fixed matrix size
+    max_mat_size = max(findmax(length.(strs))[1], max_length)+1
+    mat = zeros(Int, max_mat_size, max_mat_size)         # hardcoded fixed matrix size
     population = [rand_string(alphabet, rand(1:max_length)) for i in 1:N_pop]
+    if warm_start == true
+        min_size = min(length(strs), N_pop)
+        population[1:min_size] = strs[1:min_size]
+    end
     #display(population)
 
     #pop_hist = []; fit_hist = []; mat_hist = []

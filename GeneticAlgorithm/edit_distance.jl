@@ -2,7 +2,7 @@
 function edit_distance(s1::String, s2::String, Dist::Array{Int64,2})
     n1 = length(s1)+1
     n2 = length(s2)+1
-    #D = Array{Int,2}(undef, n1, n2)
+
     Dist[1:n1,1] = 0:(n1-1)
     Dist[1,1:n2] = 0:(n2-1)
 

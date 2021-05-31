@@ -3,46 +3,29 @@ using CSV
 include("edit_distance.jl")
 include("GA.jl")
 
-
-# define parameter grid
-N_pop_params = [10, 100]
-n_max_params = [50, 100]
-cre_p_params = [0.1,0.25,0.5]
-dupl_p_params = [0.1,0.25,0.5]
-mut_p_params = [0.1,0.25,0.5]
-cross_p_params = [0.1,0.25,0.5]
-
-# param_grid = zeros(3,6,5,5,5,5)
+# best params = (150, 150, 0.23, 0.2, 0.35, 0.22)
 
 # parameter experiments
 using DataFrames
-function test(path; max_sol_length=20)
-    results = DataFrame(file=String[], best=String[], score=Int[], time=Float64[])
+function bench(path; max_sol_length=20)
+    results = DataFrame(file=String[], best=String[], score=Int[], time=Float64[], run=Int[])
     mat = zeros(Int,100,100)
     @progress for file in readdir(path)
         if occursin(".txt", file)
             problem = JSON.parsefile(path * "/" * file)
             abc = problem["alphabet"]
             strs = Vector{String}(problem["strings"])
-            for pop in N_pop_params
-                for max in n_max_params
-                    for cre in cre_p_params
-                        for dupl in dupl_p_params
-                            for mut in mut_p_params
-                                for cross in cross_p_params
-                                    best, t, = @timed GeneticOptimization(abc, strs, N_pop=pop, max_length=max_sol_length,n_max=max,cre_p=cre,dupl_p=dupl,mut_p=mut,cross_p=cross)
-                                    score = sum(edit_distance(best, s, mat) for s in strs)
-                                    #println("Found $best with score $score in $t seconds")
-                                    push!(results, [file, best, score, t])
-                                end
-                            end
-                        end
-                    end
-                end
+            # run it 10 times to get median results
+            println("We are at problem $file")
+            for i in 1:10
+                best, t, = @timed GeneticOptimization(abc, strs, N_pop=150, max_length=max_sol_length,n_max=150,cre_p=0.23,dupl_p=0.2,mut_p=0.35,cross_p=0.22, warm_start=true)
+                score = sum(edit_distance(best, s, mat) for s in strs)
+                print("Best: $best \nscore: $score \ntime: $t\n\n")
+                push!(results, [file, best, score, t, i])
             end
         end
     end
     return results
 end
 
-res1 = test("C:/Users/basti/Documents/GitHub/PS_in_AI/instances/benchmark", max_sol_length = 20)
+res1 = bench("C:/Users/basti/Documents/GitHub/PS_in_AI/instances/benchmark", max_sol_length = 30)
