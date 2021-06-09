@@ -111,7 +111,7 @@ function GeneticOptimization(alphabet::String, strs::Vector{String}; N_pop::Int,
     #display(population)
 
     #pop_hist = []; fit_hist = []; mat_hist = []
-
+    best_hist = [];
     n = 1
     best = population[1]
     while n < n_max
@@ -131,6 +131,7 @@ function GeneticOptimization(alphabet::String, strs::Vector{String}; N_pop::Int,
         #push!(pop_hist, population)
         #push!(fit_hist, fitness)
         #push!(mat_hist, mating_pool)
+        push!(best_hist, best)
 
         population = reproduce(
             mating_pool, population, N_pop, alphabet, max_length,
@@ -138,5 +139,5 @@ function GeneticOptimization(alphabet::String, strs::Vector{String}; N_pop::Int,
         )
     end
 
-    return best#, pop_hist, fit_hist, mat_hist
+    return best, best_hist#, pop_hist, fit_hist, mat_hist
 end
