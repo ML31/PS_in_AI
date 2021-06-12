@@ -15,6 +15,7 @@ function argmin(f::Function, A::Array)
     return A[i]
 end
 
+# creates a random string with characters from alphabet with length n
 function rand_string(alphabet, n)
     return reduce(*, rand(alphabet, n))
 end
@@ -88,9 +89,12 @@ function reproduce(mating_pool::Array{Int,1}, pop::Vector{String}, N::Int,
             t2 = rand(1:length(b))
             new = pop[a][1:t1] * pop[b][t2:end]
         end
+
+        # restrict maximum length of strings
         if length(new) > max_length
             new = new[1:max_length]
         end
+
         next_pop[i] = new
     end
     return next_pop
