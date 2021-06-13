@@ -6,11 +6,7 @@ include("GA.jl")
 println("Path to problem instance:")
 path = readline()
 
-<<<<<<< HEAD
 problem = JSON.parsefile(path)
-=======
-problem = JSON.parsefile("C:/Users/basti/Documents/GitHub/PS_in_AI/instances/p2/p2_15_3-3.txt")
->>>>>>> a100a3d3c7a65d2041473d0a1b95904ca616a057
 
 
 alphabet = problem["alphabet"]
@@ -23,8 +19,6 @@ for str in strs
     println("\t", str)
 end
 
-<<<<<<< HEAD
-
 #Random.seed!(0)
 (best, ), t, = @timed GeneticOptimization(alphabet, strs,
     N_pop=150, max_length=30, n_max=150,
@@ -33,8 +27,3 @@ end
 
 d = sum(edit_distance(best, s, zeros(Int,100,100)) for s in strs)
 println(@sprintf "Found %s with edit distance %d and length %d in %.2fs." best d length(best) t)
-=======
-best = GeneticOptimization(alphabet, strs,
-    N_pop=150, max_length=30, n_max=150,
-    cre_p=0.23, dupl_p=0.2, mut_p=0.35, cross_p=0.23, warm_start=true)
->>>>>>> a100a3d3c7a65d2041473d0a1b95904ca616a057
