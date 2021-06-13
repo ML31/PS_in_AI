@@ -103,7 +103,7 @@ end
 
 #=
  Iteratively evaluates population, selects best individuals with (binary)
- tournament select where the fitness function is rank based, and creates
+ tournament selection where the fitness function is rank based, and creates
  offspring by creation, duplication, mutation (insert, delete, substitute chars),
  and crossover to solve the median string problem.
 
@@ -137,7 +137,7 @@ function GeneticOptimization(alphabet::String, strs::Vector{String}; N_pop::Int,
     population = [rand_string(alphabet, rand(1:max_length)) for i in 1:N_pop]
 
     if warm_start == true
-        # add problem input strings to initial population
+        # add input strings to initial population
         min_size = min(length(strs), N_pop)
         population[1:min_size] = strs[1:min_size]
     end
