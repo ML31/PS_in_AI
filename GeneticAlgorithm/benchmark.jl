@@ -7,9 +7,12 @@ include("GA.jl")
 
 # parameter experiments
 using DataFrames
+
 function bench(path; max_sol_length=20)
     results = DataFrame(file=String[], best=String[], score=Int[], time=Float64[], run=Int[])
     mat = zeros(Int,100,100)
+
+    # read every instance one by one and store the results in the DataFrame
     @progress for file in readdir(path)
         if occursin(".txt", file)
             problem = JSON.parsefile(path * "/" * file)

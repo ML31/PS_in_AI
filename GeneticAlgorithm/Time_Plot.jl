@@ -18,6 +18,7 @@ function plots(path; max_sol_length=20)
             # run it 10 times to get median results
             println("We are at problem $file")
             for i in 1:10
+                # try different parameter configurations to visiualize
                 best_opt, best_hist_opt = GeneticOptimization(abc, strs, N_pop=150, max_length=max_sol_length,n_max=151,cre_p=0.23,dupl_p=0.2,mut_p=0.35,cross_p=0.22, warm_start=true)
                 best_opt, best_hist_opt_cold = GeneticOptimization(abc, strs, N_pop=150, max_length=max_sol_length,n_max=151,cre_p=0.23,dupl_p=0.2,mut_p=0.35,cross_p=0.22, warm_start=false)
                 best_opt, best_hist_1 = GeneticOptimization(abc, strs, N_pop=150, max_length=max_sol_length,n_max=151,cre_p=0.0,dupl_p=0.3,mut_p=0.3,cross_p=0.3, warm_start=true)
