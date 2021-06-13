@@ -20,7 +20,7 @@ for str in strs
 end
 
 #Random.seed!(0)
-(best, ), t, = @timed GeneticOptimization(alphabet, strs,
+best, t, = @timed GeneticOptimization(alphabet, strs,
     N_pop=150, max_length=30, n_max=150,
     cre_p=0.23, dupl_p=0.20, mut_p=0.35, cross_p=0.22, warm_start=true)
 
